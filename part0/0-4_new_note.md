@@ -4,12 +4,10 @@ sequenceDiagram
     participant server
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-    Note right of browser: The browser sends the POST request to the server for creating a new note through form
-
+    Note right of browser: The browser request contains the data in text/html format as specified in the response header - content type 
     activate server
     server-->>browser: redirect to https://studies.cs.helsinki.fi/exampleapp/notes
     Note left of server: The server responds with status code 302 and redirect location in the response header
-
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
@@ -27,14 +25,11 @@ sequenceDiagram
     server-->>browser: the JavaScript file
     deactivate server
 
-
     Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
-
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
     server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
-    Note left of server: The server responds with the JSON data that also includes the input submitted through form
-
+    Note left of server: The server responds with the notes data in JSON format that also includes the input submitted through form
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
